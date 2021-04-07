@@ -18,5 +18,19 @@
     <ClCompile Include="DSTRAssignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Purchase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Purchase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

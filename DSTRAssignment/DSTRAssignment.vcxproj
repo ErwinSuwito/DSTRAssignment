@@ -140,6 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DSTRAssignment.cpp" />
+    <ClCompile Include="Pet.cpp" />
+    <ClCompile Include="Purchase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pet.h" />
+    <ClInclude Include="Purchase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
