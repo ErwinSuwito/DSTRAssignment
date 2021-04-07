@@ -21,5 +21,6 @@ public:
 	void ViewDetail(int i);
 	Purchase* getItemAt(int);
 	bool AddPet(Purchase*, Pet*);
+	bool RemovePet(Purchase*, int index);
 };
 
