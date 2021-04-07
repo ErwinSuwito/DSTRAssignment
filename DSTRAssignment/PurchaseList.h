@@ -23,4 +23,3 @@ public:
 	bool AddPet(Purchase*, Pet*);
 	bool RemovePet(Purchase*, int index);
 };
-

@@ -80,8 +80,9 @@ Purchase* PurchaseList::AddPurchase(string custName, string custEmail, string cu
 		Purchase purchase = Purchase();
 
 		// Get local date and time
-		time_t now = time(0);
-		char* date = ctime(&now);
+		time_t now = time(NULL);
+		char date[26];
+		ctime_s(date, sizeof date, &now);
 		purchase.purchaseTimeStamp = date;
 
 		// Increase the amount of items
