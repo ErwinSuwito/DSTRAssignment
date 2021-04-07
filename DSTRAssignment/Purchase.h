@@ -12,7 +12,5 @@ public:
 	char* purchaseTimeStamp;
 	Purchase* next;
 	Pet* purchases;
-
-	bool AddPurchase(string, string, string);
 };
 
