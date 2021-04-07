@@ -11,6 +11,6 @@ public:
 	double totalAmount;
 	char* purchaseTimeStamp;
 	Purchase* next;
-	Pet* purchases;
+	Pet* pets;
 };
 
