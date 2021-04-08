@@ -7,6 +7,7 @@ class PurchaseList
 {
 private:
 	int size = 0;
+	int id = 0;
 	Purchase* mergeList(Purchase* list1, Purchase* list2);
 	void splitList(Purchase* start, Purchase** list1, Purchase** list2);
 	void mergeSort(Purchase** start);

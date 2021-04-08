@@ -87,6 +87,12 @@ Purchase* PurchaseList::AddPurchase(string custName, string custEmail, string cu
 
 		// Increase the amount of items
 		size++;
+		id++;
+
+		purchase.custEmail = custEmail;
+		purchase.custName = custName;
+		purchase.custPhNo = custPhNo;
+		purchase.purchaseId = id;
 
 		return &purchase;
 	}
