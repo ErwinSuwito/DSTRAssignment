@@ -7,10 +7,11 @@ using namespace std;
 class Purchase
 {
 public:
-	string purchaseId, custName, custPhNo, custEmail;
+	int purchaseId;
+	string custName, custPhNo, custEmail;
 	double totalAmount;
-	char* purchaseTimeStamp;
-	Purchase* next;
-	Pet* pets;
+	string purchaseTimeStamp;
+	Purchase* next = NULL;
+	Pet* pets = NULL;
 };
 

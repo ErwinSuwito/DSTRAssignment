@@ -1,6 +1,7 @@
 #pragma once
 #include "Pet.h"
 #include "Purchase.h"
+#include <chrono>
 using namespace std;
 
 class PurchaseList
@@ -15,7 +16,7 @@ private:
 public:
 	Purchase* pHead;
 	int getSize();
-	Purchase* AddPurchase(string, string, string);
+	bool AddPurchase(string, string, string);
 	void Print();
 	void Print(Purchase*);
 	void SortByTotal();

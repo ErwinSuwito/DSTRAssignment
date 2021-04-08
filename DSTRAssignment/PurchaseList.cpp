@@ -72,51 +72,62 @@ int PurchaseList::getSize()
 	return size;
 }
 
-Purchase* PurchaseList::AddPurchase(string custName, string custEmail, string custPhNo)
+bool PurchaseList::AddPurchase(string custName, string custEmail, string custPhNo)
 {
 	try
 	{
 		// Initializes a new Purchase object
-		Purchase purchase = Purchase();
+		Purchase* purchase = new Purchase();
 
-		// Get local date and time
-		time_t now = time(NULL);
-		char date[26];
-		ctime_s(date, sizeof date, &now);
-		purchase.purchaseTimeStamp = date;
+		auto timenow = chrono::system_clock::to_time_t(chrono::system_clock::now());
+
+#pragma warning(suppress : 4996)
+		(*purchase).purchaseTimeStamp = ctime(&timenow);
 
 		// Increase the amount of items
 		size++;
 		id++;
 
-		purchase.custEmail = custEmail;
-		purchase.custName = custName;
-		purchase.custPhNo = custPhNo;
-		purchase.purchaseId = id;
+		(*purchase).custEmail = custEmail;
+		(*purchase).custName = custName;
+		(*purchase).custPhNo = custPhNo;
+		(*purchase).purchaseId = id;
 
-		return &purchase;
+
+		if (pHead == NULL)
+		{
+			(*purchase).next = NULL;
+		}
+		else
+		{
+			(*purchase).next = pHead;
+		}
+		
+		pHead = purchase;
+
+		return true;
 	}
 	catch (exception e)
 	{
 		cerr << endl << e.what() << endl;
-		return nullptr;
+		return false;
 	}
 }
 
 void PurchaseList::Print()
 {
-	cout << "Displaying all purchases";
+	cout << endl << "====================================";
+	cout << endl << "Displaying all purchases";
+	cout << endl << "====================================";
 	Purchase* ptr = pHead;
 
-	if (ptr == nullptr)
+	if (ptr == NULL)
 	{
-		cout << endl << "====================================";
 		cout << endl << "No purchases made";
-		cout << endl << "====================================";
 		return;
 	}
 
-	while (ptr != nullptr)
+	while (ptr != NULL)
 	{
 		cout << endl << "====================================";
 		cout << endl << "Purchase ID: " << ptr->purchaseId;
