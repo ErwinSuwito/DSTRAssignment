@@ -94,16 +94,16 @@ bool PurchaseList::AddPurchase(string custName, string custEmail, string custPhN
 		(*purchase).purchaseId = id;
 
 
-		if (pHead == NULL)
+		if (purchaseHead == NULL)
 		{
 			(*purchase).next = NULL;
 		}
 		else
 		{
-			(*purchase).next = pHead;
+			(*purchase).next = purchaseHead;
 		}
 		
-		pHead = purchase;
+		purchaseHead = purchase;
 
 		return true;
 	}
@@ -119,7 +119,7 @@ void PurchaseList::Print()
 	cout << endl << "====================================";
 	cout << endl << "Displaying all purchases";
 	cout << endl << "====================================";
-	Purchase* ptr = pHead;
+	Purchase* ptr = purchaseHead;
 
 	if (ptr == NULL)
 	{
@@ -169,7 +169,7 @@ void PurchaseList::Print(Purchase* ptr)
 
 void PurchaseList::SortByTotal()
 {
-	Purchase* ptr = pHead;
+	Purchase* ptr = purchaseHead;
 	mergeSort(&ptr);
 	this->Print(ptr);
 }
@@ -197,7 +197,7 @@ Purchase* PurchaseList::getItemAt(int index)
 		throw "Index out of bounds.";
 	}
 
-	Purchase* current = pHead;
+	Purchase* current = purchaseHead;
 	for (int i = 0; i < index; i++)
 	{
 		current = current->next;

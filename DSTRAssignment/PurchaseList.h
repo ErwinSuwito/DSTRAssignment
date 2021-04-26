@@ -14,7 +14,7 @@ private:
 	void mergeSort(Purchase** start);
 
 public:
-	Purchase* pHead;
+	Purchase* purchaseHead;
 	int getSize();
 	bool AddPurchase(string, string, string);
 	void Print();

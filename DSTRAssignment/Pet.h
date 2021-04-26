@@ -5,7 +5,7 @@ using namespace std;
 class Pet
 {
 public:
-	string assetCode, petType, species, coatColor;
+	string petId, petBreed, petColor;
 	double price;
 	Pet* next;
 	Pet* prev;

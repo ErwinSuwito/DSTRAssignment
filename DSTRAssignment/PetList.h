@@ -6,16 +6,18 @@ class PetList
 {
 private:
 	int size = 0;
-	void mergeList(Pet* list1, Pet* list2);
-	void splitList(Pet* start, Pet* list1, Pet* list2);
-	void mergeSort(Pet* start);
+	int id = 0;
+	Pet* mergeList(Pet* list1, Pet* list2);
+	void splitList(Pet* start, Pet** list1, Pet** list2);
+	void mergeSort(Pet** start);
 
 public:
+	Pet* petHead;
 	int getSize();
-	bool AddPet(string, string, string, double);
+	bool AddPet(string, string, double);
 	bool DeletePet(string);
 	void Search(string);
 	void Print();
 	void FilterByColor(string);
-	void SortByColor();
+	void SortByPrice();
 };

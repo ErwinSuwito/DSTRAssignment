@@ -7,7 +7,7 @@
 using namespace std;
 
 PurchaseList purchaseList = PurchaseList();
-Purchase* pHead = NULL;
+Purchase* purchaseHead = NULL;
 
 void showMainMenu()
 {
