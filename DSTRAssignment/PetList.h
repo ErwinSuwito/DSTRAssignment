@@ -16,9 +16,10 @@ public:
 	Pet* getItemBasedOnId(int i);
 	int getSize();
 	bool AddPet(string, string, double);
-	bool DeletePet(int);
+	void DeletePet(int);
 	void Search(int);
 	void Print();
 	void FilterByColor(string);
 	void SortByPrice();
+	bool CopyToAndDelete(Pet* newHead, Pet* oldHead, Pet* selectedPet);
 };

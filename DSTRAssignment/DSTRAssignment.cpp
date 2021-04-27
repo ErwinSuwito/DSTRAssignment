@@ -57,13 +57,15 @@ void newPurchase()
 
     Purchase* purchase;
     string input, custName, custPhNo, custEmail;
+    int petId;
     int progress = 0;
+    bool result;
 
     cout << endl << "====================================";
     cout << endl << "Customer Information";
     cout << endl << "====================================";
 
-    while (input != "0")
+    while (input != "0" && input != "100")
     {
         switch (progress)
         {
@@ -89,20 +91,42 @@ void newPurchase()
                 break;
 
             case 3:
-                bool result = purchaseList.AddPurchase(custName, custPhNo, custEmail);
+                result = purchaseList.AddPurchase(custName, custPhNo, custEmail);
                 if (result)
                 {
                     cout << endl << "====================================";
                     cout << endl << "Select Pet";
+                    cout << endl << "Enter a Pet Id to be added to the purchase. When you're done";
+                    cout << endl << "enter 1001 to quit selection and save the purchase.";
                     cout << endl << "====================================";
 
-                    // TO-DO: Print all available pets
+                    petList.Print();
+                    cout << endl << "Enter Pet Id: ";
+                    cin >> input;
+                    petId = stoi(input);
+
+                    if (input != "1001")
+                    {
+                        purchaseList.AddPet(purchaseList.purchaseHead, petList.getItemBasedOnId(petId));
+                        petList.DeletePet(petId);
+                        break;
+                    }
+                    else
+                    {
+                        progress++;
+                        break;
+                    }
                 }
                 else
                 {
                     cout << "Unable to add purchase. Please try again later.";
-                    break;
+                    return;
                 }
+                break;
+
+            case 4:
+                cout << "Please collect from the customer: RM " << purchaseList.purchaseHead->totalAmount;
+                cout << endl << "Enter 100 once purchase is completed.";
                 cin >> input;
                 break;
         }
@@ -110,8 +134,29 @@ void newPurchase()
 
     if (input == "0")
     {
-        cout << "Canceled.";
-        // TO-DO: Write code to delete the previous purcahse object
+        cout << "Canceled. Cleaning up...";
+        
+        Purchase* purchase = purchaseList.purchaseHead;
+        purchaseList.purchaseHead = purchase->next;
+
+        Pet* ptr;
+        ptr = purchase->pets;
+        
+        while (ptr != NULL)
+        {
+            Pet* nextObj = ptr->next;
+            petList.CopyToAndDelete(petList.petHead, purchase->pets, ptr);
+            ptr = nextObj;
+        }
+
+        delete(purchase);
+
+        cout << "Purchase data has been deleted. Pets have been returned to the inventory.";
+    }
+    else if (input == "100")
+    {
+        cout << endl << "Purchase completed. Returning to main menu.";
+        return;
     }
 }
 
@@ -178,6 +223,10 @@ void updatePet()
 
 void browsePets()
 {
+    cout << endl << "====================================";
+    cout << endl << "Displaying all pets";
+    cout << endl << "====================================";
+
     petList.Print();
 
     if (petList.getSize() >= 1)
@@ -208,15 +257,8 @@ void browsePets()
             case 1004:
                 cout << endl << "Enter an ID: ";
                 cin >> input;
-                bool result = petList.DeletePet(input);
-                if (result)
-                {
-                    cout << "Pet deleted successfully";
-                }
-                else
-                {
-                    cout << "Unable to delete pet. Please try again later.";
-                }
+                petList.DeletePet(input);
+                cout << "Pet deleted successfully";
                 break;
             }
 
@@ -292,11 +334,6 @@ void load()
     petList.AddPet("Welsh Corgi", "Brown", 250);
 }
 
-void searchPet()
-{
-    
-}
-
 int main()
 {
     int input;
@@ -316,7 +353,11 @@ int main()
                 break;
 
             case 3:
-                cout << "Search Pets selected" << endl;
+                int id;
+                cout << endl << "Enter a pet id to search: ";
+                cin >> id;
+
+                petList.Search(id);
                 break;
 
             case 4:

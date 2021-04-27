@@ -210,26 +210,13 @@ bool PurchaseList::AddPet(Purchase* purchase, Pet* pet)
 {
 	try
 	{
-		// Adds the selected pet to the purchase
-		if (purchase->pets == nullptr)
-		{
-			// It is a new purchase, set the prev and next to NULL
-			purchase->pets = pet;
-			pet->prev = NULL;
-			pet->next = NULL;
-
-			return true;
-		}
-		else
-		{
-			// Not the first pet to be added, modify the next and prev pointers
-			pet->prev = NULL;
-
-			Pet* current = purchase->pets;
-			current->prev = pet;
-			pet->next = current;
-			purchase->pets = pet;
-		}
+		Pet* newPet = new Pet();
+		newPet->petBreed = pet->petBreed;
+		newPet->petColor = pet->petColor;
+		newPet->price = pet->price;
+		newPet->petId = pet->petId;
+		newPet->next = purchase->pets;
+		purchase->pets = newPet;
 
 		// Updates the totalAmount of the purchase
 		purchase->totalAmount += pet->price;

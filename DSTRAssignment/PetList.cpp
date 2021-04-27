@@ -118,38 +118,39 @@ bool PetList::AddPet(string _petBreed, string _petColor, double _price)
 	}
 }
 
-bool PetList::DeletePet(int petId)
+// https://github.com/TheAlgorithms/C-Plus-Plus/blob/master/data_structures/doubly_linked_list.cpp
+void PetList::DeletePet(int petId)
 {
-	Pet* selectedPet = this->getItemBasedOnId(petId);
-	Pet* nextPet = selectedPet->next;
-	Pet* prevPet = selectedPet->prev;
+	Pet* pet = this->getItemBasedOnId(petId);
 
-	// There is no other pet in the linked list
-	if (nextPet == NULL)
+	if (pet == NULL)
 	{
-		delete(selectedPet);
-		petHead = NULL;
-		return true;
+		return;
 	}
 
-	// There is another pet in the linked list, check if there is a previous pet
-	if (prevPet != NULL)
+	if (pet->prev == NULL)
 	{
-		// There is a previous pet, fix their next and prev pointers.
-		nextPet->prev = prevPet;
-		prevPet->next = nextPet;
-		delete(selectedPet);
-		return true;
+		if (pet->next == NULL)
+		{
+			petHead = NULL;
+		}
+		else
+		{
+			petHead = pet->next;
+			petHead->prev = NULL;
+		}
+	}
+	else if (pet->next == NULL)
+	{
+		pet->prev->next = NULL;
 	}
 	else
 	{
-		// There is no prev pet, set the prev to NULL and return
-		nextPet->prev = NULL;
-		delete(selectedPet);
-		return true;
+		pet->prev->next = pet->next;
+		pet->next->prev = pet->prev;
 	}
 
-	return false;
+	delete(pet);
 }
 
 void PetList::Search(int petId)
@@ -180,10 +181,6 @@ void PetList::Search(int petId)
 void PetList::Print()
 {
 	Pet* ptr = petHead;
-
-	cout << endl << "====================================";
-	cout << endl << "Displaying all pets";
-	cout << endl << "====================================";
 
 	if (ptr == NULL)
 	{
@@ -235,6 +232,31 @@ void PetList::FilterByColor(string color)
 void PetList::SortByPrice()
 {
 	mergeSort(&petHead);
+	cout << endl << "====================================";
+	cout << endl << "Displaying sorted pets";
+	cout << endl << "====================================";
 	this->Print();
 	return;
+}
+
+bool PetList::CopyToAndDelete(Pet* newHead, Pet* oldHead, Pet* selectedPet)
+{
+	if (selectedPet == NULL)
+	{
+		// SelectedPet is invalid
+		return false;
+	}
+	
+	// Creates a new Pet object and copies the previous object values
+	Pet* pet = new Pet();
+	pet->petBreed = selectedPet->petBreed;
+	pet->petColor = selectedPet->petColor;
+	pet->price = selectedPet->price;
+
+	// Puts the new pet object to the newHead
+	pet->next = newHead;
+	newHead = pet;
+
+	this->DeletePet(selectedPet->petId);
+	return true;
 }
