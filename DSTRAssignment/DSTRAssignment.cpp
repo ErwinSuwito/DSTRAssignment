@@ -34,6 +34,8 @@ void showBrowsePetMenu()
     cout << "To perform an action, enter:" << endl;
     cout << "1001 to sort by price" << endl;
     cout << "1002 to filter by color" << endl;
+    cout << "1003 to modify pet information" << endl;
+    cout << "1004 to delete a pet" << endl;
 
     cout << endl << "2001 to return to main menu" << endl;
     cout << "Selection: ";
@@ -137,6 +139,16 @@ void browsePets()
                 cin >> color;
                 petList.FilterByColor(color);
                 break;
+                
+            case 1003:
+                cout << endl << "Enter an ID: ";
+                cin >> input;
+                auto pet = petList.getItemBasedOnId(input);
+
+                break;
+
+            case 1004:
+                break;
             }
 
             showBrowsePetMenu();
@@ -209,6 +221,11 @@ void load()
     petList.AddPet("Poodle", "White", 100);
     petList.AddPet("Samoyed", "White", 800);
     petList.AddPet("Welsh Corgi", "Brown", 250);
+}
+
+void searchPet()
+{
+    
 }
 
 int main()

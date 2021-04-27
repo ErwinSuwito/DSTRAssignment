@@ -16,7 +16,7 @@ public:
 	Pet* getItemBasedOnId(int i);
 	int getSize();
 	bool AddPet(string, string, double);
-	bool DeletePet(string);
+	bool DeletePet(int);
 	void Search(int);
 	void Print();
 	void FilterByColor(string);

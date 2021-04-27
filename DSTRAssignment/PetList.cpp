@@ -118,9 +118,34 @@ bool PetList::AddPet(string _petBreed, string _petColor, double _price)
 	}
 }
 
-bool PetList::DeletePet(string)
+bool PetList::DeletePet(int petId)
 {
-	return false;
+	Pet* selectedPet = this->getItemBasedOnId(petId);
+	Pet* nextPet = selectedPet->next;
+	Pet* prevPet = selectedPet->prev;
+
+	// There is no other pet in the linked list
+	if (nextPet == NULL)
+	{
+		delete(selectedPet);
+		petHead = NULL;
+		return;
+	}
+
+	// There is another pet in the linked list, check if there is a previous pet
+	if (prevPet != NULL)
+	{
+		// There is a previous pet, fix their next and prev pointers.
+		nextPet->prev = prevPet;
+		prevPet->next = nextPet;
+		return;
+	}
+	else
+	{
+		// There is no prev pet, set the prev to NULL and return
+		nextPet->prev = NULL;
+		return;
+	}
 }
 
 void PetList::Search(int petId)
