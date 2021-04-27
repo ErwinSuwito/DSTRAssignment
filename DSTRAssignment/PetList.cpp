@@ -129,7 +129,7 @@ bool PetList::DeletePet(int petId)
 	{
 		delete(selectedPet);
 		petHead = NULL;
-		return;
+		return true;
 	}
 
 	// There is another pet in the linked list, check if there is a previous pet
@@ -138,14 +138,18 @@ bool PetList::DeletePet(int petId)
 		// There is a previous pet, fix their next and prev pointers.
 		nextPet->prev = prevPet;
 		prevPet->next = nextPet;
-		return;
+		delete(selectedPet);
+		return true;
 	}
 	else
 	{
 		// There is no prev pet, set the prev to NULL and return
 		nextPet->prev = NULL;
-		return;
+		delete(selectedPet);
+		return true;
 	}
+
+	return false;
 }
 
 void PetList::Search(int petId)

@@ -148,6 +148,17 @@ void browsePets()
                 break;
 
             case 1004:
+                cout << endl << "Enter an ID: ";
+                cin >> input;
+                bool result = petList.DeletePet(input);
+                if (result)
+                {
+                    cout << "Pet deleted successfully";
+                }
+                else
+                {
+                    cout << "Unable to delete pet. Please try again later.";
+                }
                 break;
             }
 
