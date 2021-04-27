@@ -13,6 +13,7 @@ private:
 
 public:
 	Pet* petHead;
+	Pet* getItemBasedOnId(int i);
 	int getSize();
 	bool AddPet(string, string, double);
 	bool DeletePet(string);

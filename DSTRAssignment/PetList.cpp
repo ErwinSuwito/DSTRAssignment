@@ -69,6 +69,21 @@ void PetList::mergeSort(Pet** start)
 	return;
 }
 
+Pet* PetList::getItemBasedOnId(int i)
+{
+	Pet* ptr = petHead;
+	while (ptr != NULL)
+	{
+		if (ptr->petId == i)
+		{
+			return ptr;
+		}
+		ptr = ptr->next;
+	}
+
+	return NULL;
+}
+
 int PetList::getSize()
 {
 	return size;

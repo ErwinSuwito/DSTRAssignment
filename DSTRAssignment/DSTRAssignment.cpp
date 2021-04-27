@@ -28,6 +28,17 @@ void showMainMenu()
     cout << "Selection: ";
 }
 
+void showBrowsePetMenu()
+{
+    cout << endl << endl << "*** Browse Pets Available Actions ***" << endl;
+    cout << "To perform an action, enter:" << endl;
+    cout << "1001 to sort by price" << endl;
+    cout << "1002 to filter by color" << endl;
+
+    cout << endl << "2001 to return to main menu" << endl;
+    cout << "Selection: ";
+}
+
 void printPurchases()
 {
     purchaseList.Print();
@@ -102,9 +113,34 @@ void newPurchase()
     }
 }
 
-void printPets()
+void browsePets()
 {
     petList.Print();
+
+    int input;
+    string color = "";
+    showBrowsePetMenu();
+    cin >> input;
+
+    while (input != 2001)
+    {
+        switch (input)
+        {
+            case 1001:
+                petList.SortByPrice();
+                break;
+
+            case 1002:
+                cout << endl << "Enter a color: ";
+                cin >> color;
+                petList.FilterByColor(color);
+                break;
+
+            default:
+                cout << endl << "Invalid input";
+                break;
+        }
+    }
 }
 
 void newPet()
@@ -181,7 +217,7 @@ int main()
                 break;
 
             case 2:
-                printPets();
+                browsePets();
                 break;
 
             case 3:
