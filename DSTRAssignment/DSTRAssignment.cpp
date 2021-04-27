@@ -117,15 +117,17 @@ void browsePets()
 {
     petList.Print();
 
-    int input;
-    string color = "";
-    showBrowsePetMenu();
-    cin >> input;
-
-    while (input != 2001)
+    if (petList.getSize() >= 1)
     {
-        switch (input)
+        int input;
+        string color = "";
+        showBrowsePetMenu();
+        cin >> input;
+
+        while (input != 2001)
         {
+            switch (input)
+            {
             case 1001:
                 petList.SortByPrice();
                 break;
@@ -135,10 +137,10 @@ void browsePets()
                 cin >> color;
                 petList.FilterByColor(color);
                 break;
+            }
 
-            default:
-                cout << endl << "Invalid input";
-                break;
+            showBrowsePetMenu();
+            cin >> input;
         }
     }
 }
@@ -202,6 +204,13 @@ void sandbox()
 
 }
 
+void load()
+{
+    petList.AddPet("Poodle", "White", 100);
+    petList.AddPet("Samoyed", "White", 800);
+    petList.AddPet("Welsh Corgi", "Brown", 250);
+}
+
 int main()
 {
     int input;
@@ -234,6 +243,10 @@ int main()
 
             case 6:
                 sandbox();
+                break;
+
+            case 7:
+                load();
                 break;
 
             default:

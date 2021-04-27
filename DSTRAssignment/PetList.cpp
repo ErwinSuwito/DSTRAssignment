@@ -2,7 +2,6 @@
 
 Pet* PetList::mergeList(Pet* list1, Pet* list2)
 {
-	Pet* newHead = NULL;
 	if (list1 == NULL)
 	{
 		return list2;
@@ -15,18 +14,18 @@ Pet* PetList::mergeList(Pet* list1, Pet* list2)
 
 	if (list1->price <= list2->price)
 	{
-		newHead = list1;
-		newHead->next = mergeList(list1->next, list2);
-		newHead->prev = NULL;
+		list1->next = mergeList(list1->next, list2);
+		list1->next->prev = list1;
+		list1->prev = NULL;
+		return list1;
 	}
 	else
 	{
-		newHead = list2;
-		newHead->next = mergeList(list1, list2->next);
-		newHead->prev = NULL;
+		list2->next = mergeList(list1, list2->next);
+		list2->next->prev = list2;
+		list2->prev = NULL;
+		return list2;
 	}
-
-	return newHead;
 }
 
 void PetList::splitList(Pet* start, Pet** list1, Pet** list2)
@@ -44,29 +43,24 @@ void PetList::splitList(Pet* start, Pet** list1, Pet** list2)
 		}
 	}
 
-	*list1 = start;
 	*list2 = slow->next;
-
 	slow->next = NULL;
 }
 
 void PetList::mergeSort(Pet** start)
 {
-	Pet* head = *start;
-	Pet* list1, * list2;
-
-	if (head == NULL || head->next == NULL)
+	if (*start == NULL || (*start)->next == NULL)
 	{
 		return;
 	}
 
-	splitList(head, &list1, &list2);
+	Pet* a = *start, * b = NULL;
+	splitList(*start, &a, &b);
 
-	mergeSort(&list1);
-	mergeSort(&list2);
+	mergeSort(&a);
+	mergeSort(&b);
 
-	*start = mergeList(list1, list2);
-	return;
+	*start = mergeList(a, b);
 }
 
 Pet* PetList::getItemBasedOnId(int i)
@@ -211,7 +205,7 @@ void PetList::FilterByColor(string color)
 
 void PetList::SortByPrice()
 {
-	Pet* ptr = petHead;
-	mergeSort(&ptr);
+	mergeSort(&petHead);
 	this->Print();
+	return;
 }
