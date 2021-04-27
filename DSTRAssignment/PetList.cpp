@@ -171,7 +171,27 @@ void PetList::FilterByColor(string color)
 	cout << endl << "Displaying filtered pets";
 	cout << endl << "====================================";
 
-	// TO-DO: Write another code here
+	Pet* ptr = petHead;
+
+	if (ptr == NULL)
+	{
+		cout << endl << "No pets found";
+		return;
+	}
+
+	while (ptr != NULL)
+	{
+		if (ptr->petColor == color)
+		{
+			cout << endl << "====================================";
+			cout << endl << "ID: " << ptr->petId;
+			cout << endl << "Breed: " << ptr->petBreed;
+			cout << endl << "Color: " << ptr->petColor;
+			cout << endl << "Price: " << ptr->price;
+			cout << endl << "====================================";
+		}
+		ptr = ptr->next;
+	}
 }
 
 void PetList::SortByPrice()
