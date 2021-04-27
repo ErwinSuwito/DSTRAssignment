@@ -115,6 +115,67 @@ void newPurchase()
     }
 }
 
+void updatePet()
+{
+    int id;
+    cout << endl << "Enter a pet id to update: ";
+    cin >> id;
+
+    auto pet = petList.getItemBasedOnId(id);
+
+    if (pet == NULL)
+    {
+        cout << "Pet ID not found.";
+    }
+    else
+    {
+        cout << endl << "====================================";
+        cout << endl << "Editing Pet";
+        cout << endl << "====================================";
+        cout << endl << "Please enter all the required information below. You can cancel";
+        cout << endl << "anytime by pressing the 0 key. The original values will be shown to you.";
+        cout << endl;
+
+        string input, petBreed, petColor;
+        double price;
+        int progress = 0;
+
+        while (input != "0")
+        {
+            switch (progress)
+            {
+            case 0:
+                cout << endl << "Pet Breed [" << pet->petBreed << "]: ";
+                cin >> input;
+                petBreed = input;
+                progress++;
+                break;
+
+            case 1:
+                cout << endl << "Pet Color [" << pet->petColor << "]: ";
+                cin >> input;
+                petColor = input;
+                progress++;
+                break;
+
+            case 2:
+                cout << endl << "Price [" << pet->price << "]: ";
+                cin >> price;
+                progress++;
+                break;
+
+            case 3:
+                pet->petBreed = petBreed;
+                pet->petColor = petColor;
+                pet->price = price;
+
+                cout << "Pet successfully updated!";
+                return;
+            }
+        }
+    }
+}
+
 void browsePets()
 {
     petList.Print();
@@ -141,10 +202,7 @@ void browsePets()
                 break;
                 
             case 1003:
-                cout << endl << "Enter an ID: ";
-                cin >> input;
-                auto pet = petList.getItemBasedOnId(input);
-
+                updatePet();
                 break;
 
             case 1004:
