@@ -16,7 +16,7 @@ public:
 	int getSize();
 	bool AddPet(string, string, double);
 	bool DeletePet(string);
-	void Search(string);
+	void Search(int);
 	void Print();
 	void FilterByColor(string);
 	void SortByPrice();

@@ -4,10 +4,15 @@
 #include <iomanip>
 #include "PurchaseList.h"
 #include "Purchase.h"
+#include "PetList.h"
+#include "Pet.h"
 using namespace std;
 
 PurchaseList purchaseList = PurchaseList();
 Purchase* purchaseHead = NULL;
+
+PetList petList = PetList();
+Pet* petHead = NULL;
 
 void showMainMenu()
 {
@@ -97,6 +102,65 @@ void newPurchase()
     }
 }
 
+void printPets()
+{
+    petList.Print();
+}
+
+void newPet()
+{
+    cout << endl << "====================================";
+    cout << endl << "Add new Pet";
+    cout << endl << "====================================";
+    cout << endl << "Please enter all the required information below. You can cancel";
+    cout << endl << "anytime by pressing the 0 key.";
+    cout << endl;
+
+    Pet* pet;
+    string input, petBreed, petColor;
+    double price;
+    int progress = 0;
+
+    while (input != "0")
+    {
+        switch (progress)
+        {
+            case 0:
+                cout << endl << "Pet Breed: ";
+                cin >> input;
+                petBreed = input;
+                progress++;
+                break;
+
+            case 1:
+                cout << endl << "Pet Color: ";
+                cin >> input;
+                petColor = input;
+                progress++;
+                break;
+
+            case 2:
+                cout << endl << "Price: ";
+                cin >> price;
+                progress++;
+                break;
+
+            case 3:
+                bool result = petList.AddPet(petBreed, petColor, price);
+                if (result == true)
+                {
+                    cout << "Pet added successfuly!";
+                    return;
+                }
+                else
+                {
+                    cout << "Unable to add pet. Please try again later.";
+                    return;
+                }
+        }
+    }
+}
+
 void sandbox()
 {
 
@@ -113,15 +177,15 @@ int main()
         switch (input)
         {
             case 1: 
-                cout << "1 selected" << endl;
+                newPet();
                 break;
 
             case 2:
-                cout << "2 selected" << endl;
+                printPets();
                 break;
 
             case 3:
-                cout << "3 selected" << endl;
+                cout << "Search Pets selected" << endl;
                 break;
 
             case 4:

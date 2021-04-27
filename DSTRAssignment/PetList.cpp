@@ -114,7 +114,7 @@ bool PetList::DeletePet(string)
 	return false;
 }
 
-void PetList::Search(string petId)
+void PetList::Search(int petId)
 {
 	Pet* ptr = petHead;
 
@@ -171,7 +171,7 @@ void PetList::FilterByColor(string color)
 	cout << endl << "Displaying filtered pets";
 	cout << endl << "====================================";
 
-	PetList::Search(color);
+	// TO-DO: Write another code here
 }
 
 void PetList::SortByPrice()
