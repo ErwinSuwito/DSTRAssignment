@@ -16,12 +16,11 @@ private:
 public:
 	Purchase* purchaseHead;
 	int getSize();
-	bool AddPurchase(string, string, string);
+	Purchase* AddPurchase(string, string, string);
 	void Print();
 	void Print(Purchase*);
 	void SortByTotal();
 	void ViewDetail(int i);
 	Purchase* getItemAt(int);
 	bool AddPet(Purchase*, Pet*);
-	bool RemovePet(Purchase*, int index);
 };

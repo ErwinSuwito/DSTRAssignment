@@ -9,7 +9,7 @@ class Purchase
 public:
 	int purchaseId;
 	string custName, custPhNo, custEmail;
-	double totalAmount;
+	double totalAmount = 0;
 	string purchaseTimeStamp;
 	Purchase* next = NULL;
 	Pet* pets = NULL;

@@ -72,7 +72,7 @@ int PurchaseList::getSize()
 	return size;
 }
 
-bool PurchaseList::AddPurchase(string custName, string custEmail, string custPhNo)
+Purchase* PurchaseList::AddPurchase(string custName, string custEmail, string custPhNo)
 {
 	try
 	{
@@ -105,12 +105,12 @@ bool PurchaseList::AddPurchase(string custName, string custEmail, string custPhN
 		
 		purchaseHead = purchase;
 
-		return true;
+		return purchase;
 	}
 	catch (exception e)
 	{
 		cerr << endl << e.what() << endl;
-		return false;
+		return NULL;
 	}
 }
 
@@ -219,7 +219,8 @@ bool PurchaseList::AddPet(Purchase* purchase, Pet* pet)
 		purchase->pets = newPet;
 
 		// Updates the totalAmount of the purchase
-		purchase->totalAmount += pet->price;
+		double totalPrice = purchase->totalAmount + newPet->price;
+		purchase->totalAmount += totalPrice;
 
 		return true;
 	}

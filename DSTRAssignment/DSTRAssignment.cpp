@@ -55,11 +55,10 @@ void newPurchase()
     cout << endl << "anytime by pressing the 0 key.";
     cout << endl;
 
-    Purchase* purchase;
+    Purchase* purchase = nullptr;
     string input, custName, custPhNo, custEmail;
     int petId;
     int progress = 0;
-    bool result;
 
     cout << endl << "====================================";
     cout << endl << "Customer Information";
@@ -87,12 +86,12 @@ void newPurchase()
                 cout << endl << "Customer Email: ";
                 cin >> input;
                 custEmail = input;
+                purchase = purchaseList.AddPurchase(custName, custPhNo, custEmail);
                 progress++;
                 break;
 
             case 3:
-                result = purchaseList.AddPurchase(custName, custPhNo, custEmail);
-                if (result)
+                if (purchase != nullptr)
                 {
                     cout << endl << "====================================";
                     cout << endl << "Select Pet";
@@ -107,7 +106,7 @@ void newPurchase()
 
                     if (input != "1001")
                     {
-                        purchaseList.AddPet(purchaseList.purchaseHead, petList.getItemBasedOnId(petId));
+                        purchaseList.AddPet(purchase, petList.getItemBasedOnId(petId));
                         petList.DeletePet(petId);
                         break;
                     }
@@ -125,10 +124,17 @@ void newPurchase()
                 break;
 
             case 4:
-                cout << "Please collect from the customer: RM " << purchaseList.purchaseHead->totalAmount;
-                cout << endl << "Enter 100 once purchase is completed.";
-                cin >> input;
-                break;
+                if (purchase != nullptr)
+                {
+                    cout << "Please collect from the customer: RM " << purchase->totalAmount;
+                    cout << endl << "Enter 100 once purchase is completed.";
+                    cin >> input;
+                    break;
+                }
+                else
+                {
+                    break;
+                }
         }
     }
 
