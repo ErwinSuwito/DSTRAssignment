@@ -150,7 +150,7 @@ void newPurchase()
             if (petPtr->isSelected)
             {
                 purchaseList.AddPet(purchase, petPtr);
-                delete(petPtr);
+                petList.DeletePet(petPtr->petId);
             }
 
             petPtr = newPtr;
@@ -329,17 +329,8 @@ void newPet()
 void sandbox()
 {
     cout << endl << "Sandbox";
-    Pet* testPtr = petList.petHead;
-    while (testPtr != NULL)
-    {
-        Pet* newPtr = testPtr->next;
 
-        if (testPtr->isSelected)
-        {
-            cout << endl << testPtr->petBreed;
-        }
-        testPtr = newPtr;
-    }
+    petList.DeletePet(4);
 }
 
 void load()
