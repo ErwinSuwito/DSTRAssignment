@@ -118,6 +118,7 @@ bool PetList::AddPet(string _petBreed, string _petColor, double _price)
 	}
 }
 
+// Code taken from
 // https://github.com/TheAlgorithms/C-Plus-Plus/blob/master/data_structures/doubly_linked_list.cpp
 void PetList::DeletePet(int petId)
 {
@@ -149,7 +150,8 @@ void PetList::DeletePet(int petId)
 		pet->prev->next = pet->next;
 		pet->next->prev = pet->prev;
 	}
-
+	
+	size--;
 	delete(pet);
 }
 
@@ -190,12 +192,15 @@ void PetList::Print()
 
 	while (ptr != NULL)
 	{
-		cout << endl << "====================================";
-		cout << endl << "ID: " << ptr->petId;
-		cout << endl << "Breed: " << ptr->petBreed;
-		cout << endl << "Color: " << ptr->petColor;
-		cout << endl << "Price: " << ptr->price;
-		cout << endl << "====================================";
+		if (!ptr->isSelected)
+		{
+			cout << endl << "====================================";
+			cout << endl << "ID: " << ptr->petId;
+			cout << endl << "Breed: " << ptr->petBreed;
+			cout << endl << "Color: " << ptr->petColor;
+			cout << endl << "Price: " << ptr->price;
+			cout << endl << "====================================";
+		}
 		ptr = ptr->next;
 	}
 }
@@ -239,24 +244,14 @@ void PetList::SortByPrice()
 	return;
 }
 
-bool PetList::CopyToAndDelete(Pet* newHead, Pet* oldHead, Pet* selectedPet)
+void PetList::RevertPurchaseFlag()
 {
-	if (selectedPet == NULL)
+	Pet* ptr;
+	ptr = petHead;
+
+	while (ptr != NULL)
 	{
-		// SelectedPet is invalid
-		return false;
+		ptr->isSelected = false;
+		ptr = ptr->next;
 	}
-	
-	// Creates a new Pet object and copies the previous object values
-	Pet* pet = new Pet();
-	pet->petBreed = selectedPet->petBreed;
-	pet->petColor = selectedPet->petColor;
-	pet->price = selectedPet->price;
-
-	// Puts the new pet object to the newHead
-	pet->next = newHead;
-	newHead = pet;
-
-	this->DeletePet(selectedPet->petId);
-	return true;
 }

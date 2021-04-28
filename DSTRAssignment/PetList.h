@@ -12,7 +12,7 @@ private:
 	void mergeSort(Pet** start);
 
 public:
-	Pet* petHead;
+	Pet* petHead = NULL;
 	Pet* getItemBasedOnId(int i);
 	int getSize();
 	bool AddPet(string, string, double);
@@ -21,5 +21,5 @@ public:
 	void Print();
 	void FilterByColor(string);
 	void SortByPrice();
-	bool CopyToAndDelete(Pet* newHead, Pet* oldHead, Pet* selectedPet);
+	void RevertPurchaseFlag();
 };

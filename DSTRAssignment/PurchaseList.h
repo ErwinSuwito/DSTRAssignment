@@ -14,13 +14,13 @@ private:
 	void mergeSort(Purchase** start);
 
 public:
-	Purchase* purchaseHead;
+	Purchase* purchaseHead = NULL;
 	int getSize();
 	Purchase* AddPurchase(string, string, string);
 	void Print();
 	void Print(Purchase*);
 	void SortByTotal();
-	void ViewDetail(int i);
-	Purchase* getItemAt(int);
+	void ViewDetail(Purchase* purchase);
+	Purchase* getItemBasedOnId(int);
 	bool AddPet(Purchase*, Pet*);
 };

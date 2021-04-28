@@ -13,5 +13,15 @@ public:
 	string purchaseTimeStamp;
 	Purchase* next = NULL;
 	Pet* pets = NULL;
+
+	~Purchase()
+	{
+		while (pets != NULL)
+		{
+			Pet* next = pets->next;
+			delete(&pets);
+			pets = next;
+		}
+	}
 };
 

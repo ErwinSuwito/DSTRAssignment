@@ -9,10 +9,8 @@
 using namespace std;
 
 PurchaseList purchaseList = PurchaseList();
-Purchase* purchaseHead = NULL;
 
 PetList petList = PetList();
-Pet* petHead = NULL;
 
 void showMainMenu()
 {
@@ -41,9 +39,58 @@ void showBrowsePetMenu()
     cout << "Selection: ";
 }
 
+void showBrowsePurchaseMenu()
+{
+    cout << endl << endl << "*** View Purchases Available Actions ***" << endl;
+    cout << "To perform an action, enter:" << endl;
+    cout << "1001 to view purchase details" << endl;
+    cout << "1002 to sort by price" << endl;
+
+    cout << endl << "2001 to return to main menu" << endl;
+    cout << "Selection: ";
+}
+
 void printPurchases()
 {
-    purchaseList.Print();
+    cout << endl << "====================================";
+    cout << endl << "Displaying all purchases";
+    cout << endl << "====================================";
+
+    if (purchaseList.getSize() >= 1)
+    {
+        purchaseList.Print();
+
+        int input;
+        showBrowsePurchaseMenu();
+        cin >> input;
+        Purchase* purchase = NULL;
+        Pet* pet = NULL;
+
+        while (input != 2001)
+        {
+            switch (input)
+            {
+            case 1001:
+                cout << endl << "Enter an ID: ";
+                cin >> input;
+                purchase = purchaseList.getItemBasedOnId(input);
+
+                purchaseList.ViewDetail(purchase);
+                break;
+
+            case 1002:
+                purchaseList.SortByTotal();
+                break;
+            }
+
+            showBrowsePurchaseMenu();
+            cin >> input;
+        }
+    }
+    else
+    {
+        cout << endl << "No purchases recorded.";
+    }
 }
 
 void newPurchase()
@@ -51,118 +98,70 @@ void newPurchase()
     cout << endl << "====================================";
     cout << endl << "New Transaction";
     cout << endl << "====================================";
-    cout << endl << "Please enter all the required information below. You can cancel";
-    cout << endl << "anytime by pressing the 0 key.";
+    cout << endl << "Please enter all the required information below.";
     cout << endl;
 
     Purchase* purchase = nullptr;
-    string input, custName, custPhNo, custEmail;
-    int petId;
-    int progress = 0;
+    string custName, custPhNo, custEmail;
+    int petId = 0;
 
     cout << endl << "====================================";
     cout << endl << "Customer Information";
     cout << endl << "====================================";
 
-    while (input != "0" && input != "100")
+    cout << endl << "Customer Name: ";
+    cin >> custName;
+    cout << endl << "Customer Phone Number: ";
+    cin >> custPhNo;
+    cout << endl << "Customer Email: ";
+    cin >> custEmail;
+
+    purchase = purchaseList.AddPurchase(custName, custPhNo, custEmail);
+
+    if (purchase != nullptr)
     {
-        switch (progress)
+        cout << endl << "====================================";
+        cout << endl << "Select Pet";
+        cout << endl << "Enter a Pet Id to be added to the purchase. When you're done";
+        cout << endl << "enter 0 to quit selection and save the purchase.";
+        cout << endl << "====================================";
+
+        int input;
+        petList.Print();
+        cout << endl << "Selection: ";
+        cin >> input;
+        while (input != 0)
         {
-            case 0:
-                cout << endl << "Customer Name: ";
-                cin >> input;
-                custName = input;
-                progress++;
-                break;
+            Pet* selectedPet = petList.getItemBasedOnId(input);
+            if (selectedPet != NULL)
+            {
+                selectedPet->isSelected = true;
+            }
 
-            case 1:
-                cout << endl << "Customer Phone Number: ";
-                cin >> input;
-                custPhNo = input;
-                progress++;
-                break;
+            petList.Print();
 
-            case 2:
-                cout << endl << "Customer Email: ";
-                cin >> input;
-                custEmail = input;
-                purchase = purchaseList.AddPurchase(custName, custPhNo, custEmail);
-                progress++;
-                break;
-
-            case 3:
-                if (purchase != nullptr)
-                {
-                    cout << endl << "====================================";
-                    cout << endl << "Select Pet";
-                    cout << endl << "Enter a Pet Id to be added to the purchase. When you're done";
-                    cout << endl << "enter 1001 to quit selection and save the purchase.";
-                    cout << endl << "====================================";
-
-                    petList.Print();
-                    cout << endl << "Enter Pet Id: ";
-                    cin >> input;
-                    petId = stoi(input);
-
-                    if (input != "1001")
-                    {
-                        purchaseList.AddPet(purchase, petList.getItemBasedOnId(petId));
-                        petList.DeletePet(petId);
-                        break;
-                    }
-                    else
-                    {
-                        progress++;
-                        break;
-                    }
-                }
-                else
-                {
-                    cout << "Unable to add purchase. Please try again later.";
-                    return;
-                }
-                break;
-
-            case 4:
-                if (purchase != nullptr)
-                {
-                    cout << "Please collect from the customer: RM " << purchase->totalAmount;
-                    cout << endl << "Enter 100 once purchase is completed.";
-                    cin >> input;
-                    break;
-                }
-                else
-                {
-                    break;
-                }
-        }
-    }
-
-    if (input == "0")
-    {
-        cout << "Canceled. Cleaning up...";
-        
-        Purchase* purchase = purchaseList.purchaseHead;
-        purchaseList.purchaseHead = purchase->next;
-
-        Pet* ptr;
-        ptr = purchase->pets;
-        
-        while (ptr != NULL)
-        {
-            Pet* nextObj = ptr->next;
-            petList.CopyToAndDelete(petList.petHead, purchase->pets, ptr);
-            ptr = nextObj;
+            cin >> input;
         }
 
-        delete(purchase);
+        Pet* petPtr = petList.petHead;
+        while (petPtr != NULL)
+        {
+            Pet* newPtr = petPtr->next;
+            if (petPtr->isSelected)
+            {
+                purchaseList.AddPet(purchase, petPtr);
+                delete(petPtr);
+            }
 
-        cout << "Purchase data has been deleted. Pets have been returned to the inventory.";
+            petPtr = newPtr;
+        }
+
+        cout << "Purchase saved!";
     }
-    else if (input == "100")
+    else
     {
-        cout << endl << "Purchase completed. Returning to main menu.";
-        return;
+        cout << "Unable to add purchase. Please try again later.";
+        return; 
     }
 }
 
@@ -283,7 +282,6 @@ void newPet()
     cout << endl << "anytime by pressing the 0 key.";
     cout << endl;
 
-    Pet* pet;
     string input, petBreed, petColor;
     double price;
     int progress = 0;
@@ -330,7 +328,18 @@ void newPet()
 
 void sandbox()
 {
+    cout << endl << "Sandbox";
+    Pet* testPtr = petList.petHead;
+    while (testPtr != NULL)
+    {
+        Pet* newPtr = testPtr->next;
 
+        if (testPtr->isSelected)
+        {
+            cout << endl << testPtr->petBreed;
+        }
+        testPtr = newPtr;
+    }
 }
 
 void load()
@@ -338,6 +347,9 @@ void load()
     petList.AddPet("Poodle", "White", 100);
     petList.AddPet("Samoyed", "White", 800);
     petList.AddPet("Welsh Corgi", "Brown", 250);
+    petList.AddPet("Beagle", "Brown", 500);
+    petList.AddPet("Siberian Husky", "White", 1000);
+    petList.AddPet("Pomeranian", "Brown", 650);
 }
 
 int main()

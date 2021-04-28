@@ -8,6 +8,7 @@ public:
 	int petId;
 	string petBreed, petColor;
 	double price;
+	bool isSelected;
 	Pet* next;
 	Pet* prev;
 };

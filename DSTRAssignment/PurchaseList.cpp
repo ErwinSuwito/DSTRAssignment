@@ -1,5 +1,7 @@
 #include "PurchaseList.h"
 
+#pragma region Merge Sort Code
+
 Purchase* PurchaseList::mergeList(Purchase* list1, Purchase* list2)
 {
 	Purchase* newHead = NULL;
@@ -67,6 +69,8 @@ void PurchaseList::mergeSort(Purchase** start)
 	return;
 }
 
+#pragma endregion
+
 int PurchaseList::getSize()
 {
 	return size;
@@ -116,9 +120,6 @@ Purchase* PurchaseList::AddPurchase(string custName, string custEmail, string cu
 
 void PurchaseList::Print()
 {
-	cout << endl << "====================================";
-	cout << endl << "Displaying all purchases";
-	cout << endl << "====================================";
 	Purchase* ptr = purchaseHead;
 
 	if (ptr == NULL)
@@ -174,36 +175,52 @@ void PurchaseList::SortByTotal()
 	this->Print(ptr);
 }
 
-void PurchaseList::ViewDetail(int i)
+void PurchaseList::ViewDetail(Purchase* purchase)
 {
-	Purchase* ptr = getItemAt(i);
 
-	cout << endl << "Printing requsted purchase information";
+	cout << endl << "====================================";
+	cout << endl << "Purchase Detail";
+	cout << endl << "====================================";
 
-	cout << endl << "Purchase ID: " << ptr->purchaseId;
-	cout << endl << "Customer Name: " << ptr->custName;
-	cout << endl << "Customer Phone Number: " << ptr->custPhNo;
-	cout << endl << "Customer Email: " << ptr->custEmail;
-	cout << endl << "Transaction Date: " << ptr->purchaseTimeStamp;
-	cout << endl << "Transaction Amount: " << ptr->totalAmount;
+	cout << endl << "Purchase ID: " << purchase->purchaseId;
+	cout << endl << "Customer Name: " << purchase->custName;
+	cout << endl << "Customer Phone Number: " << purchase->custPhNo;
+	cout << endl << "Customer Email: " << purchase->custEmail;
+	cout << endl << "Transaction Date: " << purchase->purchaseTimeStamp;
+	cout << endl << "Transaction Amount: " << purchase->totalAmount;
 
-	//TO-DO: Print purchased pet details.
+	cout << endl << "====================================";
+	cout << endl << "Pet Details";
+	cout << endl << "====================================";
+
+
+	Pet* pet = purchase->pets;
+
+	while (pet != NULL)
+	{
+		cout << endl << "Breed: " << pet->petBreed;
+		cout << endl << "Color: " << pet->petColor;
+		cout << endl << "Price: " << pet->price;
+		cout << endl << "====================================";
+
+		pet = pet->next;
+	}
 }
 
-Purchase* PurchaseList::getItemAt(int index)
+Purchase* PurchaseList::getItemBasedOnId(int index)
 {
-	if (index < 0 || index >= getSize())
-	{
-		throw "Index out of bounds.";
-	}
-
 	Purchase* current = purchaseHead;
-	for (int i = 0; i < index; i++)
+	while (current != NULL)
 	{
+		if (current->purchaseId == index)
+		{
+			return current;
+		}
+
 		current = current->next;
 	}
 
-	return current;
+	return NULL;
 }
 
 bool PurchaseList::AddPet(Purchase* purchase, Pet* pet)
