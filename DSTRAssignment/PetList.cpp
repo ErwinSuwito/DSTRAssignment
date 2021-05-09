@@ -1,5 +1,7 @@
 #include "PetList.h"
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 Pet* PetList::mergeList(Pet* list1, Pet* list2)
 {
 	if (list1 == NULL)
@@ -28,6 +30,8 @@ Pet* PetList::mergeList(Pet* list1, Pet* list2)
 	}
 }
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 void PetList::splitList(Pet* start, Pet** list1, Pet** list2)
 {
 	Pet* slow = start;
@@ -47,6 +51,8 @@ void PetList::splitList(Pet* start, Pet** list1, Pet** list2)
 	slow->next = NULL;
 }
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 void PetList::mergeSort(Pet** start)
 {
 	if (*start == NULL || (*start)->next == NULL)
@@ -125,7 +131,7 @@ void PetList::UpdatePet(Pet* pet, string _petBreed, string _petColor, double _pr
 	pet->price = _price;
 }
 
-// Code taken from
+// Code adapted from
 // https://github.com/TheAlgorithms/C-Plus-Plus/blob/master/data_structures/doubly_linked_list.cpp
 void PetList::DeletePet(int petId)
 {

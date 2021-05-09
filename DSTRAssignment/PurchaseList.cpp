@@ -2,6 +2,8 @@
 
 #pragma region Merge Sort Code
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 Purchase* PurchaseList::mergeList(Purchase* list1, Purchase* list2)
 {
 	Purchase* newHead = NULL;
@@ -29,6 +31,8 @@ Purchase* PurchaseList::mergeList(Purchase* list1, Purchase* list2)
 	return newHead;
 }
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 void PurchaseList::splitList(Purchase* start, Purchase** list1, Purchase** list2)
 {
 	Purchase* slow = start;
@@ -50,6 +54,8 @@ void PurchaseList::splitList(Purchase* start, Purchase** list1, Purchase** list2
 	slow->next = NULL;
 }
 
+// The following code was adapted from
+// https://www.tutorialspoint.com/cplusplus-program-to-implement-merge-sort-algorithm-on-linked-list
 void PurchaseList::mergeSort(Purchase** start)
 {
 	Purchase* head = *start;
