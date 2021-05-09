@@ -215,9 +215,7 @@ void updatePet()
                 break;
 
             case 3:
-                pet->petBreed = petBreed;
-                pet->petColor = petColor;
-                pet->price = price;
+                petList.UpdatePet(pet, petBreed, petColor, price);
 
                 cout << "Pet successfully updated!";
                 return;

@@ -16,6 +16,7 @@ public:
 	Pet* getItemBasedOnId(int i);
 	int getSize();
 	bool AddPet(string, string, double);
+	void UpdatePet(Pet*, string, string, double);
 	void DeletePet(int);
 	void Search(int);
 	void Print();

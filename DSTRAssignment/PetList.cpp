@@ -118,6 +118,13 @@ bool PetList::AddPet(string _petBreed, string _petColor, double _price)
 	}
 }
 
+void PetList::UpdatePet(Pet* pet, string _petBreed, string _petColor, double _price)
+{
+	pet->petBreed = _petBreed;
+	pet->petColor = _petColor;
+	pet->price = _price;
+}
+
 // Code taken from
 // https://github.com/TheAlgorithms/C-Plus-Plus/blob/master/data_structures/doubly_linked_list.cpp
 void PetList::DeletePet(int petId)
